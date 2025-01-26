@@ -42,13 +42,13 @@ builds:
       - -extldflags "-static"
 
 archives:
-  - format: tar.gz
+  - formats: ['tar.gz']
     # this name template makes the OS and Arch compatible with the results of `uname`.
     name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
     # use zip for windows archives
     format_overrides:
       - goos: windows
-        format: zip
+        formats: ['zip']
 
 changelog:
   sort: asc
@@ -83,12 +83,12 @@ chocolateys:
     authors: "Cyb3r-Jak3"
     project_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
     license_url: "https://github.com/Cyb3r-Jak3/go-aws-console/blob/main/LICENSE"
-    summary: "Simple cli tool for opening the AWS console in your default browser.e"
+    summary: "Simple cli tool for opening the AWS console in your default browser"
     release_notes: "https://github.com/Cyb3r-Jak3/go-aws-console/releases/tag/{{ .Tag }}"
-    tags: "cloudflare"
+    tags: "aws"
     bug_tracker_url: "https://github.com/Cyb3r-Jak3/go-aws-console/issues"
     api_key: '{{ .Env.CHOCOLATEY_API_KEY }}'
-    copyright: "2023-2024 Cyb3r-Jak3"
+    copyright: "2025 Cyb3r-Jak3"
     package_source_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
     description: &description |
       Simple cli tool for opening the AWS console in your default browser.
