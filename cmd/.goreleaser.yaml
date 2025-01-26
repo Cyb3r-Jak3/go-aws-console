@@ -1,0 +1,153 @@
+# This is an example .goreleaser.yml file with some sensible defaults.
+# Make sure to check the documentation at https://goreleaser.com
+
+# The lines below are called `modelines`. See `:help modeline`
+# Feel free to remove those if you don't want/need to use them.
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 2
+
+before:
+  hooks:
+    # You may remove this if you don't use go modules.
+    - go mod tidy
+    - cp ../LICENSE .
+    - cp ../README.md .
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goos:
+      - linux
+      - windows
+      - darwin
+      - freebsd
+    goarch:
+      - amd64
+      - arm
+      - arm64
+      - '386'
+      - s390x
+      - ppc64le
+      - riscv64
+      - mips64
+      - mips64le
+    binary: go-aws-console
+    mod_timestamp: '{{ .CommitTimestamp }}'
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+      - -extldflags "-static"
+
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}{{ if .Mips }}_{{ .Mips }}{{ end }}"
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+
+
+checksum:
+  name_template: 'checksums.txt'
+
+snapshot:
+  version_template: "{{ .Version }}-snapshot-{{ .ShortCommit }}"
+
+signs:
+  - artifacts: all
+    args:
+      - "--batch"
+      - "--local-user"
+      - "{{ .Env.GPG_FINGERPRINT }}"
+      - "--output"
+      - "${signature}"
+      - "--detach-sign"
+      - "${artifact}"
+
+sboms:
+  - artifacts: archive
+
+chocolateys:
+  - title: "Go AWS Console"
+    authors: "Cyb3r-Jak3"
+    project_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
+    license_url: "https://github.com/Cyb3r-Jak3/go-aws-console/blob/main/LICENSE"
+    summary: "Simple cli tool for opening the AWS console in your default browser.e"
+    release_notes: "https://github.com/Cyb3r-Jak3/go-aws-console/releases/tag/{{ .Tag }}"
+    tags: "cloudflare"
+    bug_tracker_url: "https://github.com/Cyb3r-Jak3/go-aws-console/issues"
+    api_key: '{{ .Env.CHOCOLATEY_API_KEY }}'
+    copyright: "2023-2024 Cyb3r-Jak3"
+    package_source_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
+    description: &description |
+      Simple cli tool for opening the AWS console in your default browser.
+
+nfpms:
+  -
+    package_name: go-aws-console
+    vendor: Cyb3rJak3
+    homepage: "https://github.com/Cyb3r-Jak3/go-aws-console"
+    maintainer: Cyb3rJak3 <git@cyberjake.xyz>
+    description: *description
+    license: &license Apache-2.0
+    formats:
+      - apk
+      - deb
+      - rpm
+    provides:
+      - go-aws-console
+    section: default
+    priority: extra
+    # Changelog YAML file, see: https://github.com/goreleaser/chglog
+    #
+    # You can use goreleaser/chglog to create the changelog for your project,
+    # pass that changelog yaml file to GoReleaser,
+    # and it should in turn setup it accordingly for the given available
+    # formats (deb and rpm at the moment).
+    #
+    # Experimental.
+    # Since: v1.11
+    #    changelog: ./foo.yml
+    contents:
+      - src: LICENSE
+        dst: /usr/share/licenses/{{ .ProjectName }}/LICENSE.md
+      - src: README.md
+        dst: /usr/share/doc/{{ .ProjectName }}/README.md
+      - src: bash_completion
+        dst: /etc/bash_completion.d/{{ .ProjectName }}
+
+blobs:
+  - provider: s3
+    region: auto
+    endpoint: https://8be772befd147a8df540aae0fa15c047.r2.cloudflarestorage.com
+    bucket: public-files
+
+brews:
+  - name: go-aws-console
+    description: *description
+    license: *license
+    homepage: "https://github.com/Cyb3r-Jak3/go-aws-console"
+    directory: Formula
+    repository:
+      owner: Cyb3r-Jak3
+      name: homebrew-tap
+      token: "{{ .Env.GITHUB_TOKEN }}"
+
+#release:
+#  draft: true
+
+#announce:
+#  bluesky:
+#    enabled: true
+#    username: cyberjake.xyz
