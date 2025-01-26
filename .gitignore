@@ -109,4 +109,4 @@ fabric.properties
 cmd/dist/
 cmd/LICENSE
 cmd/README.md
-cmd/bash_completion
+bash_completion
