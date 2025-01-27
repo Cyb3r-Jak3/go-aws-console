@@ -79,20 +79,20 @@ signs:
 sboms:
   - artifacts: archive
 
-chocolateys:
-  - title: "Go AWS Console"
-    authors: "Cyb3r-Jak3"
-    project_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
-    license_url: "https://github.com/Cyb3r-Jak3/go-aws-console/blob/main/LICENSE"
-    summary: "Simple cli tool for opening the AWS console in your default browser"
-    release_notes: "https://github.com/Cyb3r-Jak3/go-aws-console/releases/tag/{{ .Tag }}"
-    tags: "aws"
-    bug_tracker_url: "https://github.com/Cyb3r-Jak3/go-aws-console/issues"
-    api_key: '{{ .Env.CHOCOLATEY_API_KEY }}'
-    copyright: "2025 Cyb3r-Jak3"
-    package_source_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
-    description: &description |
-      Simple cli tool for opening the AWS console in your default browser.
+#chocolateys:
+#  - title: "Go AWS Console"
+#    authors: "Cyb3r-Jak3"
+#    project_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
+#    license_url: "https://github.com/Cyb3r-Jak3/go-aws-console/blob/main/LICENSE"
+#    summary: "Simple cli tool for opening the AWS console in your default browser"
+#    release_notes: "https://github.com/Cyb3r-Jak3/go-aws-console/releases/tag/{{ .Tag }}"
+#    tags: "aws"
+#    bug_tracker_url: "https://github.com/Cyb3r-Jak3/go-aws-console/issues"
+#    api_key: '{{ .Env.CHOCOLATEY_API_KEY }}'
+#    copyright: "2025 Cyb3r-Jak3"
+#    package_source_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
+#    description: &description |
+#      Simple cli tool for opening the AWS console in your default browser.
 
 nfpms:
   -
