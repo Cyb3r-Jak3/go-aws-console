@@ -91,6 +91,7 @@ sboms:
 #    api_key: '{{ .Env.CHOCOLATEY_API_KEY }}'
 #    copyright: "2025 Cyb3r-Jak3"
 #    package_source_url: "https://github.com/Cyb3r-Jak3/go-aws-console"
+#    icon_url: "https://public-files.cyberjake.xyz/go-aws-console-logo.svg"
 #    description: &description |
 #      Simple cli tool for opening the AWS console in your default browser.
 
