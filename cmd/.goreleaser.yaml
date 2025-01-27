@@ -100,7 +100,7 @@ nfpms:
     vendor: Cyb3rJak3
     homepage: "https://github.com/Cyb3r-Jak3/go-aws-console"
     maintainer: Cyb3rJak3 <git@cyberjake.xyz>
-    description: *description
+    description: Simple cli tool for opening the AWS console in your default browser.
     license: &license Apache-2.0
     formats:
       - apk
@@ -136,7 +136,7 @@ blobs:
 
 brews:
   - name: go-aws-console
-    description: *description
+    description: Simple cli tool for opening the AWS console in your default browser.
     license: *license
     homepage: "https://github.com/Cyb3r-Jak3/go-aws-console"
     directory: Formula
